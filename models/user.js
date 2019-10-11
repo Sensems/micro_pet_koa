@@ -19,6 +19,23 @@ class UserModel {
             where: {id,},
         })
     }
+
+    static async userLogin(data) {
+        return await User.findOne({
+            where:{
+                username: data.username,
+                password: data.password
+            }
+        })
+    }
+
+    static async findOfUsername(username) {
+        return await User.findOne({
+            where:{
+                username: username
+            }
+        })
+    }
 }
 
 module.exports = UserModel;
