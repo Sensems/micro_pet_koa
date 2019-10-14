@@ -6,6 +6,8 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const cors = require('koa-cors');
+const path = require('path')
+const staticFiles = require('koa-static')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -18,8 +20,7 @@ app.use(bodyparser())
 app.use(json())
 app.use(logger())
 app.use(cors())
-app.use(require('koa-static')(__dirname + '/public'))
-
+app.use(staticFiles(path.join(__dirname + '/static/')))
 app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
@@ -34,8 +35,7 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes())
-app.use(users.allowedMethods())
+app.use(users.routes(), users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

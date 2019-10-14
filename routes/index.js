@@ -1,17 +1,8 @@
-const router = require('koa-router')()
+const router = require('koa-router')();
+const IndexCarouselControllers = require('../controllers/index_carousel');
+router.prefix('/index');
 
-router.post('/', async (ctx, next) => {
-  console.log(ctx.request.body)
-})
+router.post('/getAllCarousel', IndexCarouselControllers.getAllCarousel)
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
 
 module.exports = router
